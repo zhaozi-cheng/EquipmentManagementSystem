@@ -1,0 +1,76 @@
+/* 全局样式 */
+.el-container {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.el-header {
+    background-color: #b3c0d1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.el-aside {
+    background-color: #d3dce6;
+    color: #333;
+    border-bottom-left-radius: 8px;
+}
+
+.el-main {
+    background-color: #e9eef3;
+    color: #333;
+    border-bottom-right-radius: 8px;
+}
+
+/* 菜单样式 */
+.el-menu {
+    border-right: none;
+    border-radius: 0 0 0 8px;
+}
+
+.el-menu-item {
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.el-menu-item.is-active {
+    background-color: #ecf5ff;
+    color: #409eff;
+}
+
+/* 表单样式 */
+.el-form {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.el-form-item {
+    margin-bottom: 20px;
+}
+
+.el-input, .el-select, .el-date-editor {
+    width: 100%;
+}
+
+.el-button {
+    border-radius: 4px;
+}
+
+/* 图表容器样式 */
+.chart-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
