@@ -1,8 +1,10 @@
+type UserRole = 'admin' | 'device_manager' | 'maintainer' | 'user';
+
 interface User {
     id: number;
     username: string;
     email: string;
-    role: 'admin' | 'user';
+    role: UserRole;  // 使用新定义的类型
     createdAt: string;
     updatedAt: string;
 }
