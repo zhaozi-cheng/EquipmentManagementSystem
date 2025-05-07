@@ -61,7 +61,7 @@ import type { Device } from '@/types/device';
 
 const props = defineProps({
   deviceData: {
-    type: Object as () => Partial<Device> | null | undefined,
+    type: Object as () => Partial<Device>,
     default: () => ({})
   }
 });

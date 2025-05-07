@@ -74,26 +74,3 @@
     margin-bottom: 20px;
     text-align: center;
 }
-
-.el-container {
-    height: 100vh; /* 设置容器高度为视口高度 */
-    background-color: #f5f7fa; /* 设置背景颜色 */
-}
-
-.el-header {
-    height: 80px; /* 设置头部高度 */
-    background-color: #304156; /* 设置头部背景颜色 */
-    color: #fff; /* 设置文字颜色 */
-}
-
-.el-aside {
-    width: 200px; /* 设置侧边栏宽度 */
-    background-color: #304156; /* 设置侧边栏背景颜色 */
-    color: #fff; /* 设置文字颜色 */
-}
-
-.el-main {
-    background-color: #e9eef3; /* 设置主体部分背景颜色 */
-    color: #333; /* 设置文字颜色 */
-    padding: 20px; /* 设置内边距 */
-}

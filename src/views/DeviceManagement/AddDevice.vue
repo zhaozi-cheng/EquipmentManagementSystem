@@ -1,8 +1,7 @@
 // src/views/DeviceManagement/AddDevice.vue
 <template>
   <div>
-    <!-- 只有有权限的用户才能看到这个按钮 -->
-    <button v-permission="'device:create'">添加设备</button>
+    <h2>添加设备</h2>
     <DeviceForm :deviceData="{}" @submit="handleSubmit" />
   </div>
 </template>
@@ -10,8 +9,6 @@
 <script lang="ts" setup>
 import { useDeviceStore } from '@/stores/device';
 import DeviceForm from '@/components/DeviceForm.vue';
-import type { Device } from '@/types/device';
-import { ElMessage } from 'element-plus'; // 局部导入 ElMessage
 
 const deviceStore = useDeviceStore();
 

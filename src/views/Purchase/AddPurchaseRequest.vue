@@ -9,8 +9,6 @@
 <script lang="ts" setup>
 import { useDeviceStore } from '@/stores/device';
 import PurchaseRequestForm from '@/components/PurchaseRequestForm.vue';
-import { ElMessage } from 'element-plus';
-import type { PurchaseRequest } from '@/types/device';
 
 const deviceStore = useDeviceStore();
 
