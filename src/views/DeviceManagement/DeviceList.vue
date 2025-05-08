@@ -1,26 +1,20 @@
-// src/views/DeviceManagement/DeviceList.vue
 <template>
   <div>
     <h2>设备列表</h2>
     <DeviceQuery @query="handleQuery" />
-    <el-table :data="deviceStore.devices" style="width: 100%">
-      <el-table-column prop="id" label="内部编号" />
-      <el-table-column prop="category" label="设备类别" />
-      <el-table-column prop="name" label="设备名称" />
-      <el-table-column prop="model" label="型号" />
-      <el-table-column prop="specification" label="规格" />
-      <el-table-column prop="price" label="单价" />
-      <el-table-column prop="purchaseDate" label="购置日期" />
-      <el-table-column prop="manufacturer" label="生产厂家" />
-      <el-table-column prop="purchaser" label="购买人" />
-      <el-table-column prop="status" label="状态" />
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-button type="primary" @click="handleEdit(scope.row.id)">编辑</el-button>
-          <el-button type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
+    <a-table
+        :dataSource="deviceStore.devices"
+        :columns="columns"
+        style="width: 100%"
+        rowKey="id"
+    >
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <a-button type="primary" @click="handleEdit(record.id)" style="margin-right: 8px">编辑</a-button>
+          <a-button type="primary" danger @click="handleDelete(record.id)">删除</a-button>
         </template>
-      </el-table-column>
-    </el-table>
+      </template>
+    </a-table>
   </div>
 </template>
 
@@ -29,11 +23,67 @@ import { useDeviceStore } from '@/stores/device';
 import DeviceQuery from '@/components/DeviceQuery.vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { ElMessage } from 'element-plus'; // 局部导入 ElMessage   npm install ant-design-vue
-
+import { message } from 'ant-design-vue';
 
 const deviceStore = useDeviceStore();
 const router = useRouter();
+
+const columns = [
+  {
+    title: '内部编号',
+    dataIndex: 'id',
+    key: 'id',
+  },
+  {
+    title: '设备类别',
+    dataIndex: 'category',
+    key: 'category',
+  },
+  {
+    title: '设备名称',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: '型号',
+    dataIndex: 'model',
+    key: 'model',
+  },
+  {
+    title: '规格',
+    dataIndex: 'specification',
+    key: 'specification',
+  },
+  {
+    title: '单价',
+    dataIndex: 'price',
+    key: 'price',
+  },
+  {
+    title: '购置日期',
+    dataIndex: 'purchaseDate',
+    key: 'purchaseDate',
+  },
+  {
+    title: '生产厂家',
+    dataIndex: 'manufacturer',
+    key: 'manufacturer',
+  },
+  {
+    title: '购买人',
+    dataIndex: 'purchaser',
+    key: 'purchaser',
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    key: 'status',
+  },
+  {
+    title: '操作',
+    key: 'action',
+  },
+];
 
 onMounted(async () => {
   await deviceStore.fetchDevices();
@@ -50,9 +100,9 @@ const handleEdit = (id: number) => {
 const handleDelete = async (id: number) => {
   try {
     await deviceStore.deleteDevice(id.toString());
-    ElMessage.success('设备删除成功');
+    message.success('设备删除成功');
   } catch (error) {
-    ElMessage.error('设备删除失败');
+    message.error('设备删除失败');
   }
 };
 </script>
