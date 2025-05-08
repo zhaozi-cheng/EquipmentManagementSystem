@@ -1,4 +1,3 @@
-// src/views/Statistics/DeviceStatistics.vue
 <template>
   <div>
     <h2>设备统计</h2>

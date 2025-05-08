@@ -4,7 +4,7 @@
       <h1>403</h1>
       <h2>无权限访问</h2>
       <p>抱歉，您没有权限访问此页面</p>
-      <el-button type="primary" @click="goHome">返回首页</el-button>
+      <a-button type="primary" @click="goHome">返回首页</a-button>
     </div>
   </div>
 </template>

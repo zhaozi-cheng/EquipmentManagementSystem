@@ -1,41 +1,42 @@
 <template>
-  <el-form :model="form" label-width="120px" ref="formRef">
-    <el-form-item label="报废日期" prop="scrapDate" required>
-      <el-date-picker
-          v-model="form.scrapDate"
-          type="date"
+  <a-form :model="form" :label-col="{ span: 6 }" ref="formRef">
+    <a-form-item label="报废日期" name="scrapDate" required>
+      <a-date-picker
+          v-model:value="form.scrapDate"
           placeholder="选择日期"
           value-format="YYYY-MM-DD"
       />
-    </el-form-item>
+    </a-form-item>
 
-    <el-form-item label="报废原因" prop="reason" required>
-      <el-input
-          v-model="form.reason"
-          type="textarea"
+    <a-form-item label="报废原因" name="reason" required>
+      <a-textarea
+          v-model:value="form.reason"
           :rows="3"
           placeholder="详细描述报废原因"
       />
-    </el-form-item>
+    </a-form-item>
 
-    <el-form-item label="责任人" prop="responsiblePerson" required>
-      <el-input v-model="form.responsiblePerson" />
-    </el-form-item>
+    <a-form-item label="责任人" name="responsiblePerson" required>
+      <a-input v-model:value="form.responsiblePerson" />
+    </a-form-item>
 
-    <el-form-item label="审批人" prop="approvalPerson" required>
-      <el-input v-model="form.approvalPerson" />
-    </el-form-item>
+    <a-form-item label="审批人" name="approvalPerson" required>
+      <a-input v-model:value="form.approvalPerson" />
+    </a-form-item>
 
-    <el-form-item>
-      <el-button type="primary" @click="submitForm">提交</el-button>
-      <el-button @click="resetForm">重置</el-button>
-    </el-form-item>
-  </el-form>
+    <a-form-item :wrapper-col="{ offset: 6, span: 16 }">
+      <a-button type="primary" @click="submitForm">提交</a-button>
+      <a-button @click="resetForm">重置</a-button>
+    </a-form-item>
+  </a-form>
 </template>
 
 <script lang="ts" setup>
 import { ref, defineProps, defineEmits } from 'vue';
+import { useRoute } from 'vue-router'; // 引入 useRoute 钩子
 import type { DeviceScrap } from '@/types/device';
+
+const route = useRoute(); // 获取当前路由信息
 
 const props = defineProps({
   scrapData: {
@@ -53,7 +54,7 @@ const form = ref<Partial<DeviceScrap>>({
 
 const submitForm = async () => {
   try {
-    await formRef.value.validate();
+    await formRef.value.validateFields();
     emit('submit', form.value);
   } catch (error) {
     console.error('表单验证失败:', error);

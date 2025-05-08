@@ -4,7 +4,7 @@
       <h1>404</h1>
       <h2>页面不存在</h2>
       <p>抱歉，您访问的页面不存在</p>
-      <el-button type="primary" @click="goHome">返回首页</el-button>
+      <a-button type="primary" @click="goHome">返回首页</a-button>
     </div>
   </div>
 </template>

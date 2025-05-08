@@ -14,7 +14,7 @@ import DeviceForm from '@/components/DeviceForm.vue';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import type { Device } from '@/types/device';
-import { ElMessage } from 'element-plus';
+import { message } from 'ant-design-vue'; // 替换为 Ant Design 的 message
 
 const deviceStore = useDeviceStore();
 const route = useRoute();
@@ -27,9 +27,9 @@ onMounted(async () => {
 const handleSubmit = async (deviceData: Partial<Device>) => {
   try {
     await deviceStore.updateDevice(route.params.id as string, deviceData);
-    ElMessage.success('设备更新成功');
+    message.success('设备更新成功');
   } catch (error) {
-    ElMessage.error('设备更新失败');
+    message.error('设备更新失败');
   }
 };
 </script>

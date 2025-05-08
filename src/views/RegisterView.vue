@@ -3,23 +3,23 @@
   <div class="register-container">
     <div class="register-box">
       <h2 class="title">用户注册</h2>
-      <el-form :model="form" :rules="rules" ref="registerForm">
-        <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="用户名" prefix-icon="User" />
-        </el-form-item>
-        <el-form-item prop="email">
-          <el-input v-model="form.email" placeholder="邮箱" prefix-icon="Message" />
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="form.password" type="password" placeholder="密码" prefix-icon="Lock" show-password />
-        </el-form-item>
-        <el-form-item prop="confirmPassword">
-          <el-input v-model="form.confirmPassword" type="password" placeholder="确认密码" prefix-icon="Lock" show-password />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handleRegister" class="register-btn">注册</el-button>
-        </el-form-item>
-      </el-form>
+      <a-form :model="form" :rules="rules" ref="registerForm">
+        <a-form-item name="username">
+          <a-input v-model:value="form.username" placeholder="用户名" prefix-icon="User" />
+        </a-form-item>
+        <a-form-item name="email">
+          <a-input v-model:value="form.email" placeholder="邮箱" prefix-icon="Message" />
+        </a-form-item>
+        <a-form-item name="password">
+          <a-input v-model:value="form.password" type="password" placeholder="密码" prefix-icon="Lock" />
+        </a-form-item>
+        <a-form-item name="confirmPassword">
+          <a-input v-model:value="form.confirmPassword" type="password" placeholder="确认密码" prefix-icon="Lock" />
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" @click="handleRegister" class="register-btn">注册</a-button>
+        </a-form-item>
+      </a-form>
       <div class="footer">
         <span>已有账号？</span>
         <router-link to="/login">立即登录</router-link>

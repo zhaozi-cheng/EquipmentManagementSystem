@@ -1,43 +1,42 @@
 <template>
-  <el-form :model="form" label-width="120px" ref="formRef">
-    <el-form-item label="设备名称" prop="deviceName" required>
-      <el-input v-model="form.deviceName" />
-    </el-form-item>
+  <a-form :model="form" :label-col="{ span: 6 }" ref="formRef">
+    <a-form-item label="设备名称" name="deviceName" required>
+      <a-input v-model:value="form.deviceName" />
+    </a-form-item>
 
-    <el-form-item label="型号" prop="model" required>
-      <el-input v-model="form.model" />
-    </el-form-item>
+    <a-form-item label="型号" name="model" required>
+      <a-input v-model:value="form.model" />
+    </a-form-item>
 
-    <el-form-item label="规格" prop="specification">
-      <el-input v-model="form.specification" />
-    </el-form-item>
+    <a-form-item label="规格" name="specification">
+      <a-input v-model:value="form.specification" />
+    </a-form-item>
 
-    <el-form-item label="数量" prop="quantity" required>
-      <el-input-number v-model="form.quantity" :min="1" />
-    </el-form-item>
+    <a-form-item label="数量" name="quantity" required>
+      <a-input-number v-model:value="form.quantity" :min="1" />
+    </a-form-item>
 
-    <el-form-item label="预估单价" prop="estimatedPrice" required>
-      <el-input-number v-model="form.estimatedPrice" :min="0" :precision="2" />
-    </el-form-item>
+    <a-form-item label="预估单价" name="estimatedPrice" required>
+      <a-input-number v-model:value="form.estimatedPrice" :min="0" :precision="2" />
+    </a-form-item>
 
-    <el-form-item label="申请原因" prop="reason" required>
-      <el-input
-          v-model="form.reason"
-          type="textarea"
+    <a-form-item label="申请原因" name="reason" required>
+      <a-textarea
+          v-model:value="form.reason"
           :rows="3"
           placeholder="详细说明申请购买的原因和用途"
       />
-    </el-form-item>
+    </a-form-item>
 
-    <el-form-item label="申请人" prop="requester" required>
-      <el-input v-model="form.requester" />
-    </el-form-item>
+    <a-form-item label="申请人" name="requester" required>
+      <a-input v-model:value="form.requester" />
+    </a-form-item>
 
-    <el-form-item>
-      <el-button type="primary" @click="submitForm">提交申请</el-button>
-      <el-button @click="resetForm">重置</el-button>
-    </el-form-item>
-  </el-form>
+    <a-form-item :wrapper-col="{ offset: 6, span: 16 }">
+      <a-button type="primary" @click="submitForm">提交申请</a-button>
+      <a-button @click="resetForm">重置</a-button>
+    </a-form-item>
+  </a-form>
 </template>
 
 <script lang="ts" setup>
@@ -60,7 +59,7 @@ const form = ref<Partial<PurchaseRequest>>({
 
 const submitForm = async () => {
   try {
-    await formRef.value.validate();
+    await formRef.value.validateFields();
     emit('submit', form.value);
   } catch (error) {
     console.error('表单验证失败:', error);

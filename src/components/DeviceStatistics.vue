@@ -1,28 +1,28 @@
 <template>
   <div class="statistics-container">
-    <el-row :gutter="20">
-      <el-col :span="12">
+    <a-row :gutter="20">
+      <a-col :span="12">
         <div class="chart-container">
           <h3>设备类别分布</h3>
           <div ref="categoryChart" style="height: 400px;"></div>
         </div>
-      </el-col>
-      <el-col :span="12">
+      </a-col>
+      <a-col :span="12">
         <div class="chart-container">
           <h3>设备状态统计</h3>
           <div ref="statusChart" style="height: 400px;"></div>
         </div>
-      </el-col>
-    </el-row>
+      </a-col>
+    </a-row>
 
-    <el-row :gutter="20" style="margin-top: 20px;">
-      <el-col :span="24">
+    <a-row :gutter="20" style="margin-top: 20px;">
+      <a-col :span="24">
         <div class="chart-container">
           <h3>年度设备购置趋势</h3>
           <div ref="purchaseTrendChart" style="height: 400px;"></div>
         </div>
-      </el-col>
-    </el-row>
+      </a-col>
+    </a-row>
   </div>
 </template>
 

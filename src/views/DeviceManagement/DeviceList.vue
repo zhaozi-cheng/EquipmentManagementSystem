@@ -29,7 +29,8 @@ import { useDeviceStore } from '@/stores/device';
 import DeviceQuery from '@/components/DeviceQuery.vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { ElMessage } from 'element-plus'; // 局部导入 ElMessage
+import { ElMessage } from 'element-plus'; // 局部导入 ElMessage   npm install ant-design-vue
+
 
 const deviceStore = useDeviceStore();
 const router = useRouter();

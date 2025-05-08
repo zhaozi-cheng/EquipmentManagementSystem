@@ -1,44 +1,41 @@
 <template>
-  <el-form :model="queryParams" label-width="80px" inline>
-    <el-form-item label="设备名称">
-      <el-input v-model="queryParams.name" placeholder="请输入设备名称" clearable />
-    </el-form-item>
+  <a-form :model="queryParams" label-width="80px" inline>
+    <a-form-item label="设备名称">
+      <a-input v-model:value="queryParams.name" placeholder="请输入设备名称" />
+    </a-form-item>
 
-    <el-form-item label="设备类别">
-      <el-select v-model="queryParams.category" placeholder="请选择设备类别" clearable>
-        <el-option
+    <a-form-item label="设备类别">
+      <a-select v-model:value="queryParams.category" placeholder="请选择设备类别">
+        <a-select-option
             v-for="category in deviceCategories"
             :key="category.value"
             :label="category.label"
             :value="category.value"
         />
-      </el-select>
-    </el-form-item>
+      </a-select>
+    </a-form-item>
 
-    <el-form-item label="状态">
-      <el-select v-model="queryParams.status" placeholder="请选择状态" clearable>
-        <el-option label="正常" value="normal" />
-        <el-option label="维修中" value="repairing" />
-        <el-option label="已报废" value="scrapped" />
-      </el-select>
-    </el-form-item>
+    <a-form-item label="状态">
+      <a-select v-model:value="queryParams.status" placeholder="请选择状态">
+        <a-select-option label="正常" value="normal" />
+        <a-select-option label="维修中" value="repairing" />
+        <a-select-option label="已报废" value="scrapped" />
+      </a-select>
+    </a-form-item>
 
-    <el-form-item label="购置日期">
-      <el-date-picker
-          v-model="queryParams.purchaseDateRange"
-          type="daterange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+    <a-form-item label="购置日期">
+      <a-range-picker
+          v-model:value="queryParams.purchaseDateRange"
+          placeholder="选择日期范围"
           value-format="YYYY-MM-DD"
       />
-    </el-form-item>
+    </a-form-item>
 
-    <el-form-item>
-      <el-button type="primary" @click="handleQuery">查询</el-button>
-      <el-button @click="resetQuery">重置</el-button>
-    </el-form-item>
-  </el-form>
+    <a-form-item>
+      <a-button type="primary" @click="handleQuery">查询</a-button>
+      <a-button @click="resetQuery">重置</a-button>
+    </a-form-item>
+  </a-form>
 </template>
 
 <script lang="ts" setup>

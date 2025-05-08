@@ -1,40 +1,38 @@
 <template>
-  <el-form :model="form" label-width="120px" ref="formRef">
-    <el-form-item label="维修日期" prop="repairDate" required>
-      <el-date-picker
-          v-model="form.repairDate"
-          type="date"
+  <a-form :model="form" :label-col="{ span: 6 }" ref="formRef">
+    <a-form-item label="维修日期" name="repairDate" required>
+      <a-date-picker
+          v-model:value="form.repairDate"
           placeholder="选择日期"
           value-format="YYYY-MM-DD"
       />
-    </el-form-item>
+    </a-form-item>
 
-    <el-form-item label="维修厂家" prop="repairCompany" required>
-      <el-input v-model="form.repairCompany" />
-    </el-form-item>
+    <a-form-item label="维修厂家" name="repairCompany" required>
+      <a-input v-model:value="form.repairCompany" />
+    </a-form-item>
 
-    <el-form-item label="维修费用" prop="cost" required>
-      <el-input-number v-model="form.cost" :min="0" :precision="2" />
-    </el-form-item>
+    <a-form-item label="维修费用" name="cost" required>
+      <a-input-number v-model:value="form.cost" :min="0" :precision="2" />
+    </a-form-item>
 
-    <el-form-item label="责任人" prop="responsiblePerson" required>
-      <el-input v-model="form.responsiblePerson" />
-    </el-form-item>
+    <a-form-item label="责任人" name="responsiblePerson" required>
+      <a-input v-model:value="form.responsiblePerson" />
+    </a-form-item>
 
-    <el-form-item label="问题描述" prop="description" required>
-      <el-input
-          v-model="form.description"
-          type="textarea"
+    <a-form-item label="问题描述" name="description" required>
+      <a-textarea
+          v-model:value="form.description"
           :rows="3"
           placeholder="详细描述设备问题和维修情况"
       />
-    </el-form-item>
+    </a-form-item>
 
-    <el-form-item>
-      <el-button type="primary" @click="submitForm">提交</el-button>
-      <el-button @click="resetForm">重置</el-button>
-    </el-form-item>
-  </el-form>
+    <a-form-item :wrapper-col="{ offset: 6, span: 16 }">
+      <a-button type="primary" @click="submitForm">提交</a-button>
+      <a-button @click="resetForm">重置</a-button>
+    </a-form-item>
+  </a-form>
 </template>
 
 <script lang="ts" setup>
@@ -57,7 +55,7 @@ const form = ref<Partial<DeviceRepair>>({
 
 const submitForm = async () => {
   try {
-    await formRef.value.validate();
+    await formRef.value.validateFields();
     emit('submit', form.value);
   } catch (error) {
     console.error('表单验证失败:', error);

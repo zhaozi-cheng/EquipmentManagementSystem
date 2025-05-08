@@ -1,31 +1,31 @@
 <template>
   <div class="admin-dashboard">
     <h1>管理员仪表盘</h1>
-    <el-card class="box-card">
-      <template #header>
+    <a-card class="box-card">
+      <template #title>
         <div class="card-header">
           <span>系统概览</span>
         </div>
       </template>
       <div class="dashboard-content">
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <el-statistic title="设备总数" :value="128" />
-          </el-col>
-          <el-col :span="8">
-            <el-statistic title="维护任务" :value="12" />
-          </el-col>
-          <el-col :span="8">
-            <el-statistic title="采购申请" :value="5" />
-          </el-col>
-        </el-row>
+        <a-row :gutter="20">
+          <a-col :span="8">
+            <a-statistic title="设备总数" :value="128" />
+          </a-col>
+          <a-col :span="8">
+            <a-statistic title="维护任务" :value="12" />
+          </a-col>
+          <a-col :span="8">
+            <a-statistic title="采购申请" :value="5" />
+          </a-col>
+        </a-row>
       </div>
-    </el-card>
+    </a-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-// 这里可以添加组件逻辑
+// 逻辑保持不变
 </script>
 
 <style scoped>

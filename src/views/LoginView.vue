@@ -3,17 +3,17 @@
   <div class="login-container">
     <div class="login-box">
       <h2 class="title">实验室设备管理系统</h2>
-      <el-form :model="form" :rules="rules" ref="loginForm">
-        <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="用户名" prefix-icon="User" />
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="form.password" type="password" placeholder="密码" prefix-icon="Lock" show-password />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handleLogin" class="login-btn">登录</el-button>
-        </el-form-item>
-      </el-form>
+      <a-form :model="form" :rules="rules" ref="loginForm">
+        <a-form-item name="username">
+          <a-input v-model:value="form.username" placeholder="用户名" prefix-icon="User" />
+        </a-form-item>
+        <a-form-item name="password">
+          <a-input v-model:value="form.password" type="password" placeholder="密码" prefix-icon="Lock" />
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" @click="handleLogin" class="login-btn">登录</a-button>
+        </a-form-item>
+      </a-form>
       <div class="footer">
         <span>还没有账号？</span>
         <router-link to="/register">立即注册</router-link>

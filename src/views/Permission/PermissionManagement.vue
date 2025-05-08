@@ -1,25 +1,32 @@
 <template>
   <div class="permission-management">
-    <el-tabs v-model="activeRole">
-      <el-tab-pane v-for="role in roles" :key="role.value" :label="role.label" :name="role.value">
-        <el-transfer
-            v-model="selectedPermissions"
-            :data="allPermissions"
+    <a-tabs v-model:activeKey="activeRole">
+      <a-tab-pane v-for="role in roles" :key="role.value" :tab="role.label">
+        <a-transfer
+            v-model:target-keys="selectedPermissions"
+            :data-source="allPermissions"
             :titles="['可用权限', '已分配权限']"
-            :props="{ key: 'code', label: 'name' }"
+            :render="(item: PermissionItem) => item.name"
+            :row-key="(record: PermissionItem) => record.code"
         />
         <div style="margin-top: 20px; text-align: center;">
-          <el-button type="primary" @click="savePermissions">保存</el-button>
+          <a-button type="primary" @click="savePermissions">保存</a-button>
         </div>
-      </el-tab-pane>
-    </el-tabs>
+      </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue';
 import { usePermissionStore } from '@/stores/permission';
-import { ElMessage } from 'element-plus';
+import { message } from 'ant-design-vue';
+
+// 定义权限项的类型
+interface PermissionItem {
+  code: string;
+  name: string;
+}
 
 const permissionStore = usePermissionStore();
 
@@ -33,7 +40,7 @@ const roles = [
   { value: 'user', label: '普通用户' }
 ];
 
-const allPermissions = ref<Array<{ code: string; name: string }>>([]);
+const allPermissions = ref<PermissionItem[]>([]);
 
 onMounted(async () => {
   await permissionStore.fetchAllPermissions();
@@ -55,6 +62,6 @@ const loadRolePermissions = async () => {
 
 const savePermissions = async () => {
   await permissionStore.updateRolePermissions(activeRole.value, selectedPermissions.value);
-  ElMessage.success('权限保存成功');
+  message.success('权限保存成功');
 };
 </script>
