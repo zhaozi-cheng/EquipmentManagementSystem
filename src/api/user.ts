@@ -1,7 +1,7 @@
 // src/api/user.ts
 
 import axios from '@/utils/axios';
-import type { LoginRequest, LoginResponse } from '@/types/user';
+import type { LoginRequest, LoginResponse } from '@/types/index';
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
     const response = await axios.post<LoginResponse>('/api/auth/login', data);
@@ -9,7 +9,7 @@ export const login = async (data: LoginRequest): Promise<LoginResponse> => {
 };
 
 export const logout = async () => {
-    return axios.post('/api/auth/logout');
+    return axios.post('/auth/logout');
 };
 
 export const getUserInfo = async () => {
@@ -21,11 +21,10 @@ export const register = async (data: {
     username: string;
     email: string;
     password: string;
-}): Promise<{ message: string }> => {
-    const response = await axios.post<{ message: string }>('/api/auth/register', data);
+}): Promise<LoginResponse> => {  // 使用LoginResponse类型
+    const response = await axios.post<LoginResponse>('/api/auth/register', data);
     return response.data;
 };
-
 // 添加检查用户名是否可用接口
 export const checkUsername = async (username: string): Promise<{ available: boolean }> => {
     const response = await axios.get<{ available: boolean }>(`/api/auth/check-username?username=${username}`);

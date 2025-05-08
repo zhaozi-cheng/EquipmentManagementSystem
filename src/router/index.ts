@@ -24,13 +24,6 @@ const router = createRouter({
             component: () => import('@/views/RegisterView.vue'),
             meta: { requiresAuth: false }
         },
-        {
-            path: '/403',
-            name: 'Forbidden',
-            component: () => import('@/views/error/403.vue'),
-            meta: { requiresAuth: false }
-        },
-
         // 设备管理路由
         {
             path: '/devices',
@@ -108,7 +101,6 @@ const router = createRouter({
                 permission: 'purchase:create'
             }
         },
-
         // 统计路由
         {
             path: '/statistics',
@@ -146,7 +138,17 @@ const router = createRouter({
                 roles: ['admin']
             }
         },
-
+        {
+            path: '/devices',
+            name: 'devices',
+            component: () => import('@/views/DeviceManagement/DeviceList.vue'),
+            meta: {
+                title: '设备管理',  // 添加title
+                requiresAuth: true,
+                roles: ['admin', 'device_manager'],
+                permission: 'device:view'
+            }
+        },
         // 404 处理
         {
             path: '/:pathMatch(.*)*',
@@ -159,57 +161,43 @@ const router = createRouter({
 // 路由守卫
 router.beforeEach(async (to, from, next) => {
     const userStore = useUserStore();
-    const permissionStore = usePermissionStore();
-
-    // 设置页面标题
-    if (to.meta.title) {
-        document.title = `${to.meta.title} - 实验室设备管理系统`;
-    } else {
-        document.title = '实验室设备管理系统';
+    const permissionStore = usePermissionStore(); // 正确获取实例
+    // 设置标题
+    document.title = to.meta.title
+        ? `${to.meta.title} - 系统名称`
+        : '系统名称';
+    // 不需要认证的路由
+    if (!to.meta.requiresAuth) return next();
+    // 检查登录状态
+    if (!userStore.token) {
+        return next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+        });
     }
-
-    // 检查是否需要认证
-    if (to.meta.requiresAuth) {
-        if (!userStore.token) {
-            // 未登录则跳转到登录页，并携带重定向路径
-            next({
-                path: '/login',
-                query: { redirect: to.fullPath }
-            });
-            return;
+    // 获取用户信息和权限
+    if (!userStore.user) {
+        try {
+            await Promise.all([
+                userStore.getUserInfo(),
+                permissionStore.fetchUserPermissions()
+            ]);
+        } catch (error) {
+            await userStore.logout();
+            return next('/login');
         }
-
-        // 检查用户信息是否已加载
-        if (!userStore.user) {
-            try {
-                await userStore.getUserInfo();
-                await permissionStore.fetchUserPermissions();
-            } catch (error) {
-                // 获取用户信息失败则退出登录
-                await userStore.logout();
-                next('/login');
-                return;
-            }
-        }
-
-        // 安全的角色检查
-        if (to.meta.roles && userStore.user?.role) {
-            const allowedRoles = to.meta.roles as string[];
-            if (!allowedRoles.includes(userStore.user.role)) {
-                next('/403');
-                return;
-            }
-        }
-
-        // 安全的权限检查
-        if (to.meta.permission && !permissionStore.hasPermission(to.meta.permission as string)) {
-            next('/403');
-            return;
-        }
-
     }
+    // 角色检查 (添加类型断言)
+    if (to.meta.roles) {
+        const allowedRoles = to.meta.roles as string[]; // 类型断言
+        const userRole = userStore.user?.role;
 
+        if (!userRole || !allowedRoles.includes(userRole)) { // 现在 includes 可以正常工作
+            return next('/403');
+        }
+    }
     next();
 });
+
 
 export default router;

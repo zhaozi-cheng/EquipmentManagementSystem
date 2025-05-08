@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { getUserPermissions, getAllPermissions, getRolePermissions, updateRolePermissions } from '@/api/permission';
-import type { Permission, RolePermission } from '@/types/permission';
+import type { Permission, RolePermission } from '@/types/index';
 
 export const usePermissionStore = defineStore('permission', {
     state: () => ({
@@ -50,7 +50,7 @@ export const usePermissionStore = defineStore('permission', {
         },
 
         hasPermission(code: string): boolean {
-            return this.userPermissions.includes(code);
+            return this.userPermissions?.includes(code) || false;
         }
     }
 });
