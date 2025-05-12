@@ -160,44 +160,37 @@ const router = createRouter({
 
 // 路由守卫
 router.beforeEach(async (to, from, next) => {
-    const userStore = useUserStore();
-    const permissionStore = usePermissionStore(); // 正确获取实例
-    // 设置标题
-    document.title = to.meta.title
-        ? `${to.meta.title} - 系统名称`
-        : '系统名称';
-    // 不需要认证的路由
-    if (!to.meta.requiresAuth) return next();
-    // 检查登录状态
+    const userStore = useUserStore()
+
+    // 不需要认证的路由直接放行
+    if (!to.meta.requiresAuth) return next()
+
+    // 检查token是否存在
     if (!userStore.token) {
         return next({
             path: '/login',
             query: { redirect: to.fullPath }
-        });
+        })
     }
-    // 获取用户信息和权限
+
+    // 已登录状态下访问登录页则重定向到首页
+    if (to.path === '/login') {
+        return next('/')
+    }
+
+    // 确保用户信息已加载
     if (!userStore.user) {
         try {
-            await Promise.all([
-                userStore.getUserInfo(),
-                permissionStore.fetchUserPermissions()
-            ]);
+            await userStore.getUserInfo()
         } catch (error) {
-            await userStore.logout();
-            return next('/login');
+            await userStore.logout()
+            return next('/login')
         }
     }
-    // 角色检查 (添加类型断言)
-    if (to.meta.roles) {
-        const allowedRoles = to.meta.roles as string[]; // 类型断言
-        const userRole = userStore.user?.role;
 
-        if (!userRole || !allowedRoles.includes(userRole)) { // 现在 includes 可以正常工作
-            return next('/403');
-        }
-    }
-    next();
-});
+    next()
+})
+
 
 
 export default router;

@@ -14,21 +14,26 @@ export const useUserStore = defineStore('user', {
         async login(loginData: LoginRequest) {
             try {
                 const response = await axios.post('/api/auth/login', loginData);
-                const data = response.data as LoginResponse;
+                const data = response.data;
 
-                // 确保响应数据存在且结构正确
-                if (!response.data || !response.data.token || !response.data.user) {
-                    throw new Error('服务器返回的数据格式不正确');
-                }
-
-                if (!data.token) {
-                    throw new Error('登录失败: 未获取到token');
+                // 确保响应结构正确
+                if (!data || !data.token || !data.user) {
+                    throw new Error('Invalid response structure');
                 }
                 this.token = data.token;
                 this.user = data.user;
                 localStorage.setItem('token', this.token);
 
-                return response.data;
+                // 确保返回的数据结构正确
+                return {
+                    token: data.token,
+                    user: {
+                        id: data.user.id,
+                        username: data.user.username,
+                        email: data.user.email,
+                        role: data.user.role
+                    }
+                };
             } catch (error: any) {
                 let errorMessage = '登录失败';
 

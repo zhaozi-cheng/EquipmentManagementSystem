@@ -50,7 +50,11 @@ export const usePermissionStore = defineStore('permission', {
         },
 
         hasPermission(code: string): boolean {
-            return this.userPermissions?.includes(code) || false;
+            // 确保 code 是字符串且 userPermissions 已初始化
+            if (typeof code !== 'string' || !this.userPermissions) {
+                return false;
+            }
+            return this.userPermissions.includes(code);
         }
     }
 });

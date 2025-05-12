@@ -1,0 +1,38 @@
+{
+  "name": "equipment-management-system",
+  "version": "1.0.0",
+  "description": "An equipment management system built with Vue.js",
+  "main": "index.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "type": "module"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
+    "ant-design-vue": "^4.2.6",
+    "axios": "^1.9.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "echarts": "^5.6.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1",
+    "pinia": "^3.0.2",
+    "vue": "^3.4.27",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/cors": "^2.8.17",
+    "@types/echarts": "^4.9.22",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.16",
+    "@types/vue-router": "^2.0.0",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.8.3",
+    "vite": "^5.2.8"
+  }
+}
